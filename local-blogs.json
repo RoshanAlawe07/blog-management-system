@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "1754644516163",
+    "title": "dvsV",
+    "description": "VvSVSVSDV",
+    "category": "Startup",
+    "author": "Alex Bennett",
+    "image": "/1754644516159_Screenshot 2025-08-05 181158.png",
+    "authorImg": "/author_img.png",
+    "createdAt": "2025-08-08T09:15:16.163Z"
+  },
+  {
+    "_id": "sample1",
+    "title": "Getting Started with Next.js",
+    "description": "Learn how to build modern web applications with Next.js framework",
+    "category": "Technology",
+    "image": "/blog_pic_1.png",
+    "author": "John Doe",
+    "authorImg": "/profile_icon.png",
+    "createdAt": "2025-08-08T09:54:25.645Z"
+  },
+  {
+    "_id": "sample2",
+    "title": "The Future of Web Development",
+    "description": "Exploring the latest trends and technologies in web development",
+    "category": "Technology",
+    "image": "/blog_pic_2.png",
+    "author": "Jane Smith",
+    "authorImg": "/profile_icon.png",
+    "createdAt": "2025-08-08T09:54:25.645Z"
+  },
+  {
+    "_id": "sample3",
+    "title": "Building a Successful Startup",
+    "description": "Essential tips and strategies for launching your startup",
+    "category": "Startup",
+    "image": "/blog_pic_3.png",
+    "author": "Mike Johnson",
+    "authorImg": "/profile_icon.png",
+    "createdAt": "2025-08-08T09:54:25.645Z"
+  },
+  {
+    "_id": "sample4",
+    "title": "Healthy Lifestyle Tips",
+    "description": "Simple ways to maintain a healthy and balanced lifestyle",
+    "category": "Lifestyle",
+    "image": "/blog_pic_4.png",
+    "author": "Sarah Wilson",
+    "authorImg": "/profile_icon.png",
+    "createdAt": "2025-08-08T09:54:25.645Z"
+  }
+]
