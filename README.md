@@ -46,7 +46,7 @@ blog-app/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/blog-management-system.git
+   git clone https://github.com/Strsnger07/blog-management-system.git
    cd blog-management-system
    ```
 
@@ -114,6 +114,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter) - email@example.com
+Strsnger07 - [@Strsnger07](https://github.com/Strsnger07)
 
-Project Link: [https://github.com/yourusername/blog-management-system](https://github.com/yourusername/blog-management-system)
+Project Link: [https://github.com/Strsnger07/blog-management-system](https://github.com/Strsnger07/blog-management-system)
