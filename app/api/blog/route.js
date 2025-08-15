@@ -8,82 +8,88 @@ import path from 'path'
 let isConnected = false;
 let localBlogs = [];
 
-// Load local blogs from file
+// Initialize with sample blogs for Netlify
+const initializeSampleBlogs = () => {
+    const sampleBlogs = [
+        {
+            _id: "sample1",
+            title: "Getting Started with Next.js",
+            description: "Learn how to build modern web applications with Next.js framework",
+            category: "Technology",
+            image: "/blog_pic_1.png",
+            author: "John Doe",
+            authorImg: "/profile_icon.png",
+            createdAt: new Date().toISOString()
+        },
+        {
+            _id: "sample2", 
+            title: "The Future of Web Development",
+            description: "Exploring the latest trends and technologies in web development",
+            category: "Technology",
+            image: "/blog_pic_2.png",
+            author: "Jane Smith",
+            authorImg: "/profile_icon.png",
+            createdAt: new Date().toISOString()
+        },
+        {
+            _id: "sample3",
+            title: "Building a Successful Startup",
+            description: "Essential tips and strategies for launching your startup",
+            category: "Startup", 
+            image: "/blog_pic_3.png",
+            author: "Mike Johnson",
+            authorImg: "/profile_icon.png",
+            createdAt: new Date().toISOString()
+        },
+        {
+            _id: "sample4",
+            title: "Healthy Lifestyle Tips",
+            description: "Simple ways to maintain a healthy and balanced lifestyle",
+            category: "Lifestyle",
+            image: "/blog_pic_4.png", 
+            author: "Sarah Wilson",
+            authorImg: "/profile_icon.png",
+            createdAt: new Date().toISOString()
+        }
+    ];
+    
+    // Initialize localBlogs with sample blogs
+    localBlogs = [...sampleBlogs];
+    console.log("📝 Initialized with sample blogs for Netlify");
+};
+
+// Load local blogs from file (only in development)
 const loadLocalBlogs = () => {
-    try {
-        const blogsPath = path.join(process.cwd(), 'local-blogs.json');
-        if (fs.existsSync(blogsPath)) {
-            const data = fs.readFileSync(blogsPath, 'utf8');
-            localBlogs = JSON.parse(data);
-            console.log(`📁 Loaded ${localBlogs.length} blogs from local storage`);
+    if (process.env.NODE_ENV === 'development') {
+        try {
+            const blogsPath = path.join(process.cwd(), 'local-blogs.json');
+            if (fs.existsSync(blogsPath)) {
+                const data = fs.readFileSync(blogsPath, 'utf8');
+                localBlogs = JSON.parse(data);
+                console.log(`📁 Loaded ${localBlogs.length} blogs from local storage`);
+            }
+        } catch (error) {
+            console.log("No local blogs file found");
         }
-        
-        // Check if sample blogs exist, if not add them
-        const sampleBlogIds = ["sample1", "sample2", "sample3", "sample4"];
-        const hasSampleBlogs = sampleBlogIds.some(id => localBlogs.some(blog => blog._id === id));
-        
-        if (!hasSampleBlogs) {
-            const sampleBlogs = [
-                {
-                    _id: "sample1",
-                    title: "Getting Started with Next.js",
-                    description: "Learn how to build modern web applications with Next.js framework",
-                    category: "Technology",
-                    image: "/blog_pic_1.png",
-                    author: "John Doe",
-                    authorImg: "/profile_icon.png",
-                    createdAt: new Date().toISOString()
-                },
-                {
-                    _id: "sample2", 
-                    title: "The Future of Web Development",
-                    description: "Exploring the latest trends and technologies in web development",
-                    category: "Technology",
-                    image: "/blog_pic_2.png",
-                    author: "Jane Smith",
-                    authorImg: "/profile_icon.png",
-                    createdAt: new Date().toISOString()
-                },
-                {
-                    _id: "sample3",
-                    title: "Building a Successful Startup",
-                    description: "Essential tips and strategies for launching your startup",
-                    category: "Startup", 
-                    image: "/blog_pic_3.png",
-                    author: "Mike Johnson",
-                    authorImg: "/profile_icon.png",
-                    createdAt: new Date().toISOString()
-                },
-                {
-                    _id: "sample4",
-                    title: "Healthy Lifestyle Tips",
-                    description: "Simple ways to maintain a healthy and balanced lifestyle",
-                    category: "Lifestyle",
-                    image: "/blog_pic_4.png", 
-                    author: "Sarah Wilson",
-                    authorImg: "/profile_icon.png",
-                    createdAt: new Date().toISOString()
-                }
-            ];
-            
-            // Add sample blogs to existing blogs
-            localBlogs = [...localBlogs, ...sampleBlogs];
-            saveLocalBlogs();
-            console.log("📝 Added sample blogs to local storage");
-        }
-    } catch (error) {
-        console.log("No local blogs file found");
+    } else {
+        // In production (Netlify), use sample blogs
+        initializeSampleBlogs();
     }
 };
 
-// Save blogs to local file
+// Save blogs to local file (only in development)
 const saveLocalBlogs = () => {
-    try {
-        const blogsPath = path.join(process.cwd(), 'local-blogs.json');
-        fs.writeFileSync(blogsPath, JSON.stringify(localBlogs, null, 2));
-        console.log(`💾 Saved ${localBlogs.length} blogs to local storage`);
-    } catch (error) {
-        console.log("Error saving local blogs:", error.message);
+    if (process.env.NODE_ENV === 'development') {
+        try {
+            const blogsPath = path.join(process.cwd(), 'local-blogs.json');
+            fs.writeFileSync(blogsPath, JSON.stringify(localBlogs, null, 2));
+            console.log(`💾 Saved ${localBlogs.length} blogs to local storage`);
+        } catch (error) {
+            console.log("Error saving local blogs:", error.message);
+        }
+    } else {
+        // In production (Netlify), just log the action
+        console.log(`💾 Would save ${localBlogs.length} blogs (Netlify environment)`);
     }
 };
 
@@ -155,9 +161,19 @@ export async function POST(request) {
 
   const imageByteData = await image.arrayBuffer();
   const buffer = Buffer.from(imageByteData);
-  const path = `./public/${timestamp}_${image.name}`;
-  await writeFile(path, buffer);
-  const imgUrl = `/${timestamp}_${image.name}`;
+  
+  // For Netlify, we can't write files, so use a placeholder or skip
+  let imgUrl = "/blog_pic_1.png"; // Default image for Netlify
+  
+  if (process.env.NODE_ENV === 'development') {
+    try {
+      const path = `./public/${timestamp}_${image.name}`;
+      await writeFile(path, buffer);
+      imgUrl = `/${timestamp}_${image.name}`;
+    } catch (error) {
+      console.log("Error saving image file:", error.message);
+    }
+  }
 
   const blogData = {
     title: `${formData.get('title')}`,
