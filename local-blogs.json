@@ -48,5 +48,15 @@
     "author": "Sarah Wilson",
     "authorImg": "/profile_icon.png",
     "createdAt": "2025-08-08T09:54:25.645Z"
+  },
+  {
+    "_id": "1755275493138",
+    "title": "blog",
+    "description": "blog rvadkvmvjmsvdfajfbvsv  dfsjvvslv k jvnsdfjvnspeijfvmskdvmfvs",
+    "category": "Startup",
+    "author": "Alex Bennett",
+    "image": "/1755275493134_Screenshot 2025-08-05 122444.png",
+    "authorImg": "/author_img.png",
+    "createdAt": "2025-08-15T16:31:33.138Z"
   }
 ]
