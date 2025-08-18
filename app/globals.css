@@ -533,6 +533,42 @@ p.text-center {
     margin: 2.5rem 0 1rem 0 !important;
 }
 
+/* Force category button spacing and styling */
+.flex.justify-center.gap-4 {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+}
+
+/* Force button styling */
+.flex.justify-center.gap-4 button {
+    padding: 0.5rem 1.5rem !important;
+    border-radius: 0.375rem !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    margin: 0 0.25rem !important;
+}
+
+/* Active button state */
+.flex.justify-center.gap-4 button.bg-black {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Inactive button state */
+.flex.justify-center.gap-4 button.bg-white {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #d1d5db !important;
+}
+
+/* Hover effects */
+.flex.justify-center.gap-4 button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
 .category-filters button {
     background-color: #ffffff !important;
     border: 1px solid #d1d5db !important;

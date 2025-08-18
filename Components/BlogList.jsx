@@ -120,11 +120,47 @@ const BlogList = () => {
           {blogs.length === 0 ? "No blogs found. Please try again later." : "Using local storage. Database connection not available."}
         </div>
       )}
-      <div className='flex justify-center gap-6 my-10'>
-        <button onClick={()=>setMenu('All')} className={menu==="All"?'bg-black text-white py-1 px-4 rounded-sm':""}>All</button>
-        <button onClick={()=>setMenu('Technology')} className={menu==="Technology"?'bg-black text-white py-1 px-4 rounded-sm':""}>Technology</button>
-        <button onClick={()=>setMenu('Startup')} className={menu==="Startup"?'bg-black text-white py-1 px-4 rounded-sm':""}>Startup</button>
-        <button onClick={()=>setMenu('Lifestyle')} className={menu==="Lifestyle"?'bg-black text-white py-1 px-4 rounded-sm':""}>Lifestyle</button>
+      <div className='flex justify-center gap-4 my-10'>
+        <button 
+          onClick={()=>setMenu('All')} 
+          className={`py-2 px-6 rounded-md font-medium transition-all duration-200 ${
+            menu==="All" 
+              ? 'bg-black text-white shadow-lg' 
+              : 'bg-white text-black border border-gray-300 hover:bg-gray-50'
+          }`}
+        >
+          All
+        </button>
+        <button 
+          onClick={()=>setMenu('Technology')} 
+          className={`py-2 px-6 rounded-md font-medium transition-all duration-200 ${
+            menu==="Technology" 
+              ? 'bg-black text-white shadow-lg' 
+              : 'bg-white text-black border border-gray-300 hover:bg-gray-50'
+          }`}
+        >
+          Technology
+        </button>
+        <button 
+          onClick={()=>setMenu('Startup')} 
+          className={`py-2 px-6 rounded-md font-medium transition-all duration-200 ${
+            menu==="Startup" 
+              ? 'bg-black text-white shadow-lg' 
+              : 'bg-white text-black border border-gray-300 hover:bg-gray-50'
+          }`}
+        >
+          Startup
+        </button>
+        <button 
+          onClick={()=>setMenu('Lifestyle')} 
+          className={`py-2 px-6 rounded-md font-medium transition-all duration-200 ${
+            menu==="Lifestyle" 
+              ? 'bg-black text-white shadow-lg' 
+              : 'bg-white text-black border border-gray-300 hover:bg-gray-50'
+          }`}
+        >
+          Lifestyle
+        </button>
       </div>
       <div className="text-center mb-4 text-sm text-gray-600">
         Showing {blogs.filter((item)=> menu==="All"?true:item.category===menu).length} of {blogs.length} blogs ({menu} category)
