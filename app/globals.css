@@ -106,6 +106,21 @@
     flex-grow: 0 !important;
 }
 
+/* Add line clamping utilities */
+.line-clamp-2 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.line-clamp-3 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
 .blog-image {
     width: 100% !important;
     height: 200px !important;
@@ -212,6 +227,47 @@
     min-height: 16px !important;
 }
 
+/* Fix blog card text spacing and colors */
+.blog-item h5 {
+    margin-bottom: 8px !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    color: #111827 !important;
+    letter-spacing: -0.025em !important;
+}
+
+.blog-item p {
+    margin-bottom: 12px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #374151 !important;
+    letter-spacing: -0.025em !important;
+}
+
+/* Fix Read more link color */
+.blog-item a[href*="/blogs/"] {
+    color: #2563eb !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+}
+
+.blog-item a[href*="/blogs/"]:hover {
+    color: #1d4ed8 !important;
+}
+
+/* Fix category tag styling */
+.blog-item p.ml-5.mt-5 {
+    margin-left: 20px !important;
+    margin-top: 20px !important;
+    padding: 4px 12px !important;
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    border-radius: 4px !important;
+    display: inline-block !important;
+}
+
 /* Force grid layout with maximum specificity */
 .blog-section .grid {
     display: grid !important;
@@ -220,6 +276,39 @@
     width: 100% !important;
     max-width: 100% !important;
     overflow: visible !important;
+}
+
+/* Force all blog card styles to work on Vercel */
+.blog-item {
+    background-color: #ffffff !important;
+    border: 1px solid #000000 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+}
+
+.blog-item:hover {
+    box-shadow: -7px 7px 0px #000000 !important;
+}
+
+/* Force padding and margins */
+.blog-item > div:last-child {
+    padding: 20px !important;
+}
+
+.blog-item h5 {
+    margin-bottom: 8px !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    color: #111827 !important;
+}
+
+.blog-item p:not(.ml-5.mt-5) {
+    margin-bottom: 12px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #374151 !important;
 }
 
 @media (min-width: 640px) {

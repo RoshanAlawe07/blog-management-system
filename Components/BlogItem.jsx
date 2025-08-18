@@ -42,6 +42,7 @@ const BlogItem = ({ title, description, category, image, id }) => {
             height={16}
             className="ml-2 object-contain"
             priority={false}
+            unoptimized={true}
           />
         </Link>
         {/* -------------------------------------- */}
