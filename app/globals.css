@@ -2,6 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Force CSS to work on Vercel - CSS Reset */
+* {
+    box-sizing: border-box !important;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    line-height: 1.6 !important;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+}
+
+/* Force all text elements */
+h1, h2, h3, h4, h5, h6, p, span, div {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Force all buttons */
+button {
+    font-family: inherit !important;
+    cursor: pointer !important;
+}
+
+/* Force all inputs */
+input {
+    font-family: inherit !important;
+}
+
 .scrollbar-hide::-webkit-scrollbar{
     display: none;
 }
@@ -225,6 +254,19 @@
     max-height: 16px !important;
     min-width: 16px !important;
     min-height: 16px !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
+/* Fix Read more link layout */
+.blog-item a[href*="/blogs/"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.blog-item a[href*="/blogs/"] span {
+    display: inline-block !important;
 }
 
 /* Fix blog card text spacing and colors */
@@ -285,6 +327,122 @@
     border-radius: 8px !important;
     overflow: hidden !important;
     transition: all 0.3s ease !important;
+}
+
+/* Fix Header Section CSS */
+header {
+    background-color: #ffffff !important;
+    padding: 1rem 0 !important;
+    border-bottom: 1px solid #e5e7eb !important;
+}
+
+/* Fix Logo and Navigation */
+.logo {
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+    color: #000000 !important;
+}
+
+/* Fix Header Buttons */
+header button {
+    background-color: #ffffff !important;
+    border: 1px solid #000000 !important;
+    color: #000000 !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+
+header button:hover {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* Fix Main Heading */
+h1, .main-heading {
+    font-size: 2.5rem !important;
+    font-weight: bold !important;
+    color: #000000 !important;
+    text-align: center !important;
+    margin: 2rem 0 1rem 0 !important;
+}
+
+/* Fix Lorem Ipsum Paragraph */
+.lorem-text, .description-text {
+    font-size: 1rem !important;
+    color: #6b7280 !important;
+    text-align: center !important;
+    max-width: 600px !important;
+    margin: 0 auto 2rem auto !important;
+    line-height: 1.6 !important;
+}
+
+/* Fix Subscribe Section */
+.subscribe-section {
+    text-align: center !important;
+    margin: 2rem 0 !important;
+}
+
+.subscribe-input {
+    border: 1px solid #d1d5db !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 4px !important;
+    margin-right: 0.5rem !important;
+    min-width: 250px !important;
+}
+
+.subscribe-button {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #000000 !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+}
+
+.subscribe-button:hover {
+    background-color: #374151 !important;
+}
+
+/* Fix Category Filter Buttons */
+.category-filters {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1.5rem !important;
+    margin: 2.5rem 0 1rem 0 !important;
+}
+
+.category-filters button {
+    background-color: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    color: #374151 !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+.category-filters button.active,
+.category-filters button:first-child {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #000000 !important;
+}
+
+.category-filters button:hover:not(.active) {
+    background-color: #f3f4f6 !important;
+    border-color: #9ca3af !important;
+}
+
+/* Fix Blog Count Text */
+.blog-count {
+    text-align: center !important;
+    color: #6b7280 !important;
+    font-size: 0.875rem !important;
+    margin-bottom: 2rem !important;
 }
 
 .blog-item:hover {

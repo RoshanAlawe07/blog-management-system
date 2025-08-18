@@ -34,13 +34,13 @@ const BlogItem = ({ title, description, category, image, id }) => {
           href={`/blogs/${id}`}
           className="inline-flex items-center py-2 font-semibold text-blue-600 hover:text-blue-800"
         >
-          Read more
+          <span>Read more</span>
           <Image
             src={assets.arrow}
             alt=""
             width={16}
             height={16}
-            className="ml-2 object-contain"
+            className="ml-2 object-contain inline-block"
             priority={false}
             unoptimized={true}
           />
