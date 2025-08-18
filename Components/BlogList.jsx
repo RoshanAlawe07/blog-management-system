@@ -134,7 +134,7 @@ const BlogList = () => {
           <div className="text-xl text-gray-500">No blogs available</div>
         </div>
       ) : (
-        <div className='flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl:mx-24'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16 px-4 max-w-7xl mx-auto'>
           {blogs.filter((item)=> {
             const shouldShow = menu==="All"?true:item.category===menu;
             console.log(`🔍 Blog "${item.title}" (${item.category}) - Menu: ${menu} - Show: ${shouldShow}`);
