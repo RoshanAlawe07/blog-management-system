@@ -497,6 +497,82 @@ p.text-center {
     transform: none !important;
 }
 
+/* Force Footer styling to work on Vercel */
+.bg-black {
+    background-color: #000000 !important;
+}
+
+/* Force footer layout */
+.bg-black .max-w-7xl {
+    max-width: 80rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Force footer flexbox */
+.bg-black .flex.flex-col.sm\:flex-row {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 2rem !important;
+}
+
+@media (min-width: 640px) {
+    .bg-black .flex.flex-col.sm\:flex-row {
+        flex-direction: row !important;
+        gap: 0 !important;
+    }
+}
+
+/* Force footer items */
+.bg-black .flex-shrink-0 {
+    flex-shrink: 0 !important;
+}
+
+/* Force logo clarity and sizing */
+.bg-black .flex-shrink-0 img {
+    image-rendering: -webkit-optimize-contrast !important;
+    image-rendering: crisp-edges !important;
+    image-rendering: pixelated !important;
+    filter: contrast(1.1) brightness(1.1) !important;
+}
+
+/* Force footer text */
+.bg-black p.text-base {
+    font-size: 1rem !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+/* Force social media icons */
+.bg-black .flex.gap-3 {
+    display: flex !important;
+    gap: 0.75rem !important;
+}
+
+.bg-black .flex.gap-3 img {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    transition: opacity 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+.bg-black .flex.gap-4 img:hover {
+    opacity: 0.8 !important;
+}
+
+/* Force footer padding */
+.bg-black.py-4 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.bg-black.px-4 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
 /* Fix Subscribe Section */
 .subscribe-section {
     text-align: center !important;
