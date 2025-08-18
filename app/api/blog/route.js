@@ -8,7 +8,7 @@ import path from 'path'
 let isConnected = false;
 let localBlogs = [];
 
-// Initialize with sample blogs for Netlify
+// Initialize with sample blogs for Vercel
 const initializeSampleBlogs = () => {
     const sampleBlogs = [
         {
@@ -55,7 +55,7 @@ const initializeSampleBlogs = () => {
     
     // Initialize localBlogs with sample blogs
     localBlogs = [...sampleBlogs];
-    console.log("📝 Initialized with sample blogs for Netlify");
+    console.log("📝 Initialized with sample blogs for Vercel");
 };
 
 // Load local blogs from file (only in development)
@@ -72,7 +72,7 @@ const loadLocalBlogs = () => {
             console.log("No local blogs file found");
         }
     } else {
-        // In production (Netlify), use sample blogs
+        // In production (Vercel), use sample blogs
         initializeSampleBlogs();
     }
 };
@@ -88,8 +88,8 @@ const saveLocalBlogs = () => {
             console.log("Error saving local blogs:", error.message);
         }
     } else {
-        // In production (Netlify), just log the action
-        console.log(`💾 Would save ${localBlogs.length} blogs (Netlify environment)`);
+        // In production (Vercel), just log the action
+        console.log(`💾 Would save ${localBlogs.length} blogs (Vercel environment)`);
     }
 };
 
@@ -162,8 +162,8 @@ export async function POST(request) {
   const imageByteData = await image.arrayBuffer();
   const buffer = Buffer.from(imageByteData);
   
-  // For Netlify, we can't write files, so use a placeholder or skip
-  let imgUrl = "/blog_pic_1.png"; // Default image for Netlify
+  // For Vercel, we can't write files, so use a placeholder or skip
+  let imgUrl = "/blog_pic_1.png"; // Default image for Vercel
   
   if (process.env.NODE_ENV === 'development') {
     try {
