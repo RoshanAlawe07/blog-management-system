@@ -536,6 +536,22 @@ p.text-center {
     height: auto !important;
 }
 
+/* Force blog content spacing */
+.blog-content {
+    margin-top: 2rem !important;
+    margin-bottom: 3rem !important;
+}
+
+/* Force blog image bottom margin */
+.mb-12 {
+    margin-bottom: 3rem !important;
+}
+
+/* Force blog content top margin */
+.mt-8 {
+    margin-top: 2rem !important;
+}
+
 /* Force social media icons centering */
 .my-24 .flex.justify-center {
     display: flex !important;

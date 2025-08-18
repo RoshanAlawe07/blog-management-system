@@ -40,7 +40,7 @@ const Page = ({ params }) => {
       </div>
     </div>
     <div className='mx-5 max-w-[800px] md:mx-auto mt-[-100px] mb-10'>
-      <div className='text-center mb-8 w-full'>
+      <div className='text-center mb-12 w-full'>
         <Image 
           className='border-4 border-white shadow-lg rounded-lg inline-block' 
           src={data.image} 
@@ -51,18 +51,11 @@ const Page = ({ params }) => {
         />
       </div>
       
-      <div className='blog-content' dangerouslySetInnerHTML={{__html:data.description}}>
+      <div className='blog-content mt-8 mb-12' dangerouslySetInnerHTML={{__html:data.description}}>
         
       </div>
       
-      <div className='my-24'>
-        <p className='text-black font-semibold my-4'>Share this article on social media</p>
-        <div className='flex justify-center gap-4'>
-          <Image src={assets.facebook_icon} width={50} height={50} alt='Facebook' className='cursor-pointer hover:opacity-80 transition-opacity' />
-          <Image src={assets.twitter_icon} width={50} height={50} alt='Twitter' className='cursor-pointer hover:opacity-80 transition-opacity' />
-          <Image src={assets.googleplus_icon} width={50} height={50} alt='Google Plus' className='cursor-pointer hover:opacity-80 transition-opacity' />
-        </div>
-      </div>
+
     </div>
     <Footer />
   </> : <></>
