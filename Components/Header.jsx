@@ -51,7 +51,7 @@ const Header = () => {
       </div>
       <div className='text-center my-12'>
         <h1 className='text-3xl sm:text-5xl font-medium mb-6'>Latest Blogs</h1>
-        <p className='mt-8 max-w-[740px] mx-auto text-center text-sm sm:text-base leading-relaxed text-gray-600'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever.</p>
+        <p className='mt-8 max-w-[740px] mx-auto text-center text-sm sm:text-base leading-relaxed text-gray-600 px-4'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever.</p>
         <form onSubmit={onSubmitHandler} className='flex justify-between max-w-[400px] mx-auto mt-12 border border-black shadow-[-7px_7px_0px_#000000] rounded-lg overflow-hidden' action="">
             <input onChange={(e)=>setEmail(e.target.value)} value={email} type="email" placeholder='Enter your email' className='pl-4 py-3 outline-none flex-1 text-sm' required />
             <button type='submit' className='border-l border-black py-3 px-4 active:bg-gray-600 active:text-white font-medium text-sm'>Subscribe</button>

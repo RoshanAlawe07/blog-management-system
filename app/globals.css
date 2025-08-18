@@ -447,6 +447,24 @@ h1, .main-heading {
     text-align: center !important;
 }
 
+/* Force paragraph centering specifically */
+p.text-center {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+}
+
+/* Force max-width and centering */
+.max-w-\[740px\] {
+    max-width: 740px !important;
+}
+
+.mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 .text-sm {
     font-size: 0.875rem !important;
 }
