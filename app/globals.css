@@ -336,6 +336,70 @@ header {
     border-bottom: 1px solid #e5e7eb !important;
 }
 
+/* Force Header spacing to work on Vercel */
+.py-8 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+
+.px-8 {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
+
+@media (min-width: 768px) {
+    .md\\:px-16 {
+        padding-left: 4rem !important;
+        padding-right: 4rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .lg\\:px-32 {
+        padding-left: 8rem !important;
+        padding-right: 8rem !important;
+    }
+}
+
+/* Force button spacing */
+.gap-4 {
+    gap: 1rem !important;
+}
+
+/* Force main content spacing */
+.my-12 {
+    margin-top: 3rem !important;
+    margin-bottom: 3rem !important;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mt-8 {
+    margin-top: 2rem !important;
+}
+
+.mt-12 {
+    margin-top: 3rem !important;
+}
+
+/* Force form spacing */
+.py-4 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.px-6 {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+
+.px-8 {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
+
 /* Fix Logo and Navigation */
 .logo {
     font-size: 1.5rem !important;

@@ -32,10 +32,10 @@ const Header = () => {
   }
 
   return (
-    <div className='py-5 px-5 md:px-12 lg:px-28'>
+    <div className='py-8 px-8 md:px-16 lg:px-32'>
       <div className='flex justify-between items-center'>
         <Image src={assets.logo} width={180} height={60} alt='Blog Logo' className='w-[130px] sm:w-auto'/>
-        <div className='flex gap-3'>
+        <div className='flex gap-4'>
           <button 
             onClick={handleGetStarted}
             className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border border-solid border-black shadow-[-7px_7px_0px_#000000] hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer'
@@ -49,12 +49,12 @@ const Header = () => {
           </Link>
         </div>
       </div>
-      <div className='text-center my-8'>
-        <h1 className='text-3xl sm:text-5xl font-medium'>Latest Blogs</h1>
-        <p className='mt-10 max-w-[740px] m-auto text-xs sm:text-base'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever.</p>
-        <form onSubmit={onSubmitHandler} className='flex justify-between max-w-[500px] scale-75 sm:scale-100 mx-auto mt-10 border border-black shadow-[-7px_7px_0px_#000000]' action="">
-            <input onChange={(e)=>setEmail(e.target.value)} value={email} type="email" placeholder='Enter your email' className='pl-4 outline-none' required />
-            <button type='submit' className='border-l border-black py-4 px-4 sm:px-8 active:bg-gray-600 active:text-white'>Subscribe</button>
+      <div className='text-center my-12'>
+        <h1 className='text-3xl sm:text-5xl font-medium mb-6'>Latest Blogs</h1>
+        <p className='mt-8 max-w-[740px] m-auto text-xs sm:text-base leading-relaxed'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever.</p>
+        <form onSubmit={onSubmitHandler} className='flex justify-between max-w-[500px] scale-75 sm:scale-100 mx-auto mt-12 border border-black shadow-[-7px_7px_0px_#000000] rounded-lg overflow-hidden' action="">
+            <input onChange={(e)=>setEmail(e.target.value)} value={email} type="email" placeholder='Enter your email' className='pl-6 py-4 outline-none flex-1' required />
+            <button type='submit' className='border-l border-black py-4 px-6 sm:px-8 active:bg-gray-600 active:text-white font-medium'>Subscribe</button>
         </form>
       </div>
     </div>
