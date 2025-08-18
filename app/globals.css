@@ -497,6 +497,61 @@ p.text-center {
     transform: none !important;
 }
 
+/* Force blog detail page image centering */
+.flex.justify-center {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.flex.justify-center img {
+    max-width: 100% !important;
+    height: auto !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 8px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+}
+
+/* Force blog detail page container centering */
+.mx-5.max-w-\[800px\].md\:mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 800px !important;
+}
+
+/* Force blog image container */
+.mx-5.max-w-\[800px\].md\:mx-auto .text-center {
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.mx-5.max-w-\[800px\].md\:mx-auto .text-center img {
+    margin: 0 auto !important;
+    display: inline-block !important;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Force social media icons centering */
+.my-24 .flex.justify-center {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+}
+
+.my-24 .flex.justify-center img {
+    cursor: pointer !important;
+    transition: opacity 0.2s ease !important;
+}
+
+.my-24 .flex.justify-center img:hover {
+    opacity: 0.8 !important;
+}
+
 /* Force Footer styling to work on Vercel */
 .bg-black {
     background-color: #000000 !important;
