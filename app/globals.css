@@ -168,6 +168,50 @@
     width: 100% !important;
 }
 
+/* Fix arrow image size specifically */
+.blog-item .arrow-icon {
+    width: 12px !important;
+    height: 12px !important;
+    max-width: 12px !important;
+    max-height: 12px !important;
+}
+
+/* Target the span wrapper for the arrow */
+.blog-item span.relative.w-4.h-4 img {
+    width: 16px !important;
+    height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+}
+
+/* Force arrow image size - target all images in blog-item except the main blog image */
+.blog-item img:not(.blog-image) {
+    width: 16px !important;
+    height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+}
+
+/* Specific targeting for the arrow span */
+.blog-item span.relative img {
+    width: 16px !important;
+    height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+}
+
+/* Force arrow image to stay small */
+.blog-item a[href*="/blogs/"] img:not(.blog-image) {
+    width: 16px !important;
+    height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+}
+
 /* Force grid layout with maximum specificity */
 .blog-section .grid {
     display: grid !important;
