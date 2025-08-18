@@ -52,3 +52,63 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* Force blog grid layout */
+.blog-section .grid {
+    display: grid !important;
+    grid-template-columns: repeat(1, 1fr) !important;
+}
+
+@media (min-width: 640px) {
+    .blog-section .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .blog-section .grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    .blog-section .grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* Force blog item sizing */
+.blog-section .grid > div {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+}
+
+/* Force image sizing */
+.blog-section .grid img {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+}
+
+/* Force blog item sizing with !important */
+.blog-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+}
+
+.blog-image {
+    width: 100% !important;
+    height: 200px !important;
+    max-height: 200px !important;
+    object-fit: cover !important;
+}
+
+/* Override any conflicting Tailwind classes */
+.blog-section .grid > * {
+    width: 100% !important;
+    max-width: 100% !important;
+}
