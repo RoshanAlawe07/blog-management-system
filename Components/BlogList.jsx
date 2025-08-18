@@ -134,7 +134,22 @@ const BlogList = () => {
           <div className="text-xl text-gray-500">No blogs available</div>
         </div>
       ) : (
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16 px-4 max-w-7xl mx-auto'>
+        <div className='blog-section grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16 px-4 max-w-7xl mx-auto' style={{
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(1, 1fr)', 
+          gap: '24px',
+          width: '100%',
+          maxWidth: '100%'
+        }} onLoad={(e) => {
+          const width = window.innerWidth;
+          if (width >= 1280) {
+            e.target.style.gridTemplateColumns = 'repeat(4, 1fr)';
+          } else if (width >= 1024) {
+            e.target.style.gridTemplateColumns = 'repeat(3, 1fr)';
+          } else if (width >= 640) {
+            e.target.style.gridTemplateColumns = 'repeat(2, 1fr)';
+          }
+        }}>
           {blogs.filter((item)=> {
             const shouldShow = menu==="All"?true:item.category===menu;
             console.log(`🔍 Blog "${item.title}" (${item.category}) - Menu: ${menu} - Show: ${shouldShow}`);

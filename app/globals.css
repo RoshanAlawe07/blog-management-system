@@ -153,3 +153,45 @@
     flex: none !important;
     flex-basis: auto !important;
 }
+
+/* Force image sizing within blog items */
+.blog-item img {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+}
+
+/* Ensure grid items don't overflow */
+.blog-section .grid > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Force grid layout with maximum specificity */
+.blog-section .grid {
+    display: grid !important;
+    grid-template-columns: repeat(1, 1fr) !important;
+    gap: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+}
+
+@media (min-width: 640px) {
+    .blog-section .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .blog-section .grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    .blog-section .grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
