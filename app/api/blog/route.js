@@ -115,36 +115,39 @@ export async function GET(request) {
     console.log("🔍 Blog API GET request received");
     const blogId = request.nextUrl.searchParams.get("id");
     
-    if (isConnected) {
-      try {
-        if (blogId) {
-          const blog = await BlogModel.findById(blogId);
+    // Always try database first
+    try {
+      if (blogId) {
+        const blog = await BlogModel.findById(blogId);
+        if (blog) {
           return NextResponse.json(blog);
-        } else {
-          const dbBlogs = await BlogModel.find({});
-          // Combine database blogs with local blogs
-          const allBlogs = [...dbBlogs, ...localBlogs];
-          console.log(`📊 Returning ${allBlogs.length} blogs (${dbBlogs.length} from DB, ${localBlogs.length} from local)`);
-          return NextResponse.json({ blogs: allBlogs })
         }
-      } catch (dbError) {
-        console.log("Database GET failed, using local storage");
-        isConnected = false;
+      } else {
+        const dbBlogs = await BlogModel.find({});
+        console.log(`📊 Returning ${dbBlogs.length} blogs from database`);
+        return NextResponse.json({ blogs: dbBlogs })
       }
+    } catch (dbError) {
+      console.log("Database GET failed:", dbError.message);
     }
     
-    // Fallback to local storage
-    if (blogId) {
-      const blog = localBlogs.find(b => b._id === blogId);
-      return NextResponse.json(blog);
+    // Fallback to local storage only in development
+    if (process.env.NODE_ENV === 'development') {
+      if (blogId) {
+        const blog = localBlogs.find(b => b._id === blogId);
+        return NextResponse.json(blog);
+      } else {
+        console.log(`📊 Returning ${localBlogs.length} blogs from local storage`);
+        return NextResponse.json({ blogs: localBlogs })
+      }
     } else {
-      console.log(`📊 Returning ${localBlogs.length} blogs from local storage`);
-      console.log("📋 Local blogs:", localBlogs);
+      // In production (Vercel), return sample blogs if database fails
+      console.log("📊 Database failed, returning sample blogs for Vercel");
       return NextResponse.json({ blogs: localBlogs })
     }
   } catch (error) {
     console.log("API Error:", error.message);
-    return NextResponse.json({ blogs: localBlogs, error: "Using local storage" });
+    return NextResponse.json({ blogs: localBlogs, error: "Using fallback storage" });
   }
 }
 
@@ -184,30 +187,35 @@ export async function POST(request) {
     authorImg: `${formData.get('authorImg')}`
   }
 
-    // Try database first
-    if (isConnected) {
-      try {
-  await BlogModel.create(blogData);
-        console.log("Blog Saved Successfully to Database!");
-        return NextResponse.json({ success: true, msg: "Blog Added Successfully!" })
-      } catch (dbError) {
-        console.log("Database operation failed, using local storage");
-        isConnected = false;
+    // Always try database first
+    try {
+      const newBlog = await BlogModel.create(blogData);
+      console.log("Blog Saved Successfully to Database!");
+      return NextResponse.json({ success: true, msg: "Blog Added Successfully!" })
+    } catch (dbError) {
+      console.log("Database operation failed:", dbError.message);
+      
+      // Fallback to local storage only in development
+      if (process.env.NODE_ENV === 'development') {
+        const localBlogData = {
+          _id: Date.now().toString(),
+          ...blogData,
+          createdAt: new Date().toISOString()
+        };
+        
+        localBlogs.push(localBlogData);
+        saveLocalBlogs();
+        
+        console.log("Blog Saved Successfully to Local Storage!");
+        return NextResponse.json({ success: true, msg: "Blog Added Successfully! (Local Storage)" })
+      } else {
+        // In production (Vercel), return error if database fails
+        return NextResponse.json({ 
+          success: false, 
+          msg: "Database connection failed. Please check your MongoDB connection." 
+        });
       }
     }
-    
-    // Fallback to local storage
-    const localBlogData = {
-      _id: Date.now().toString(),
-      ...blogData,
-      createdAt: new Date().toISOString()
-    };
-    
-    localBlogs.push(localBlogData);
-    saveLocalBlogs();
-    
-    console.log("Blog Saved Successfully to Local Storage!");
-    return NextResponse.json({ success: true, msg: "Blog Added Successfully! (Local Storage)" })
     
   } catch (error) {
     console.log("POST Error:", error.message);
