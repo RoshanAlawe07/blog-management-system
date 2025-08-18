@@ -57,23 +57,29 @@
 .blog-section .grid {
     display: grid !important;
     grid-template-columns: repeat(1, 1fr) !important;
+    gap: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 @media (min-width: 640px) {
     .blog-section .grid {
         grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px !important;
     }
 }
 
 @media (min-width: 1024px) {
     .blog-section .grid {
         grid-template-columns: repeat(3, 1fr) !important;
+        gap: 24px !important;
     }
 }
 
 @media (min-width: 1280px) {
     .blog-section .grid {
         grid-template-columns: repeat(4, 1fr) !important;
+        gap: 24px !important;
     }
 }
 
@@ -111,4 +117,39 @@
 .blog-section .grid > * {
     width: 100% !important;
     max-width: 100% !important;
+}
+
+/* Force grid items to not be inline */
+.blog-section .grid > div {
+    display: block !important;
+    float: none !important;
+    clear: both !important;
+}
+
+/* Ensure proper spacing */
+.blog-section .grid {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Force blog items to be grid items */
+.blog-item {
+    display: block !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Override any flexbox that might be interfering */
+.blog-section .grid {
+    display: grid !important;
+    flex-direction: unset !important;
+    flex-wrap: unset !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+}
+
+.blog-section .grid > * {
+    flex: none !important;
+    flex-basis: auto !important;
 }
