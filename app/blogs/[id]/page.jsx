@@ -41,14 +41,25 @@ const Page = ({ params }) => {
     </div>
     <div className='mx-5 max-w-[800px] md:mx-auto mt-[-100px] mb-10'>
       <div className='text-center mb-12 w-full'>
-        <Image 
-          className='border-4 border-white shadow-lg rounded-lg inline-block' 
-          src={data.image} 
-          width={800} 
-          height={480} 
-          alt={data.title}
-          style={{ maxWidth: '100%', height: 'auto' }}
-        />
+        {data.image && data.image.startsWith('data:image') ? (
+          // Handle base64 images
+          <img 
+            className='border-4 border-white shadow-lg rounded-lg inline-block' 
+            src={data.image} 
+            alt={data.title}
+            style={{ maxWidth: '100%', height: 'auto' }}
+          />
+        ) : (
+          // Handle regular images with Next.js Image component
+          <Image 
+            className='border-4 border-white shadow-lg rounded-lg inline-block' 
+            src={data.image} 
+            width={800} 
+            height={480} 
+            alt={data.title}
+            style={{ maxWidth: '100%', height: 'auto' }}
+          />
+        )}
       </div>
       
       <div className='blog-content mt-8 mb-12' dangerouslySetInnerHTML={{__html:data.description}}>

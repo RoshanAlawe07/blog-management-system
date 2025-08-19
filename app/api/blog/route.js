@@ -210,19 +210,24 @@ export async function POST(request) {
     const imageByteData = await image.arrayBuffer();
     const buffer = Buffer.from(imageByteData);
     
-    // Generate unique image name for each blog
-    const imageName = `${timestamp}_${image.name}`;
-    let imgUrl = `/${imageName}`;
+    // Convert image to base64 for Vercel compatibility
+    const base64Image = `data:${image.type};base64,${buffer.toString('base64')}`;
     
-    // Try to save image file (works in both development and production)
-    try {
-      const imagePath = `./public/${imageName}`;
-      await writeFile(imagePath, buffer);
-      console.log("✅ Image saved successfully:", imagePath);
-    } catch (error) {
-      console.log("⚠️  Could not save image file:", error.message);
-      // Use a fallback image if file saving fails
-      imgUrl = "/blog_pic_1.png";
+    // For development, also save to file system
+    let imgUrl = base64Image;
+    
+    if (process.env.NODE_ENV === 'development') {
+      try {
+        const timestamp = Date.now();
+        const imageName = `${timestamp}_${image.name}`;
+        const imagePath = `./public/${imageName}`;
+        await writeFile(imagePath, buffer);
+        imgUrl = `/${imageName}`;
+        console.log("✅ Image saved to file system:", imagePath);
+      } catch (error) {
+        console.log("⚠️  Could not save image file:", error.message);
+        // Keep using base64 if file saving fails
+      }
     }
 
     const blogData = {

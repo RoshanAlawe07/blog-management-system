@@ -84,16 +84,16 @@ const BlogList = () => {
           setBlogs(response.data.blogs);
           setError(false);
         } else {
-          console.log("⚠️ No blogs from API");
-          setBlogs([]);
-          setError(true);
+          console.log("⚠️ No blogs from API, using sample blogs");
+          setBlogs(sampleBlogs);
+          setError(false);
         }
         setLoading(false);
       } catch (error) {
         console.log("❌ API Error:", error.message);
-        console.log("🔄 API failed, showing empty state");
-        setBlogs([]);
-        setError(true);
+        console.log("🔄 API failed, using sample blogs as fallback");
+        setBlogs(sampleBlogs);
+        setError(false);
         setLoading(false);
       }
     }
@@ -117,7 +117,7 @@ const BlogList = () => {
     <div className="blog-section">
       {error && (
         <div className="text-center py-4 bg-yellow-100 border border-yellow-400 text-yellow-700 mx-4 rounded">
-          {blogs.length === 0 ? "No blogs found. Please try again later." : "Using local storage. Database connection not available."}
+          {blogs.length === 0 ? "No blogs found. Please try again later." : "Using sample blogs. Database connection not available."}
         </div>
       )}
       <div className='flex justify-center gap-4 my-10'>

@@ -12,33 +12,45 @@ const AuthButton = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
+  console.log("🔐 AuthButton: Current state - User:", user?.email, "Authenticated:", isAuthenticated);
+
   const handleSignInSwitch = () => {
+    console.log("🔐 AuthButton: Switching to Sign In");
     setShowSignUp(false);
     setShowSignIn(true);
   };
 
   const handleSignUpSwitch = () => {
+    console.log("🔐 AuthButton: Switching to Sign Up");
     setShowSignIn(false);
     setShowSignUp(true);
   };
 
   const handleLogout = async () => {
+    console.log("🔐 AuthButton: Logging out...");
     await logout();
     setShowUserMenu(false);
   };
 
   if (!isAuthenticated) {
+    console.log("🔐 AuthButton: User not authenticated, showing Sign In/Sign Up buttons");
     return (
       <>
         <div className="flex gap-3">
           <button
-            onClick={() => setShowSignIn(true)}
+            onClick={() => {
+              console.log("🔐 AuthButton: Sign In button clicked");
+              setShowSignIn(true);
+            }}
             className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium transition-colors"
           >
             Sign In
           </button>
           <button
-            onClick={() => setShowSignUp(true)}
+            onClick={() => {
+              console.log("🔐 AuthButton: Sign Up button clicked");
+              setShowSignUp(true);
+            }}
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
             Sign Up
