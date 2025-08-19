@@ -44,20 +44,20 @@ const Page = ({ params }) => {
         {data.image && data.image.startsWith('data:image') ? (
           // Handle base64 images
           <img 
-            className='border-4 border-white shadow-lg rounded-lg inline-block' 
+            className='mx-auto border-4 border-white shadow-lg rounded-lg max-w-full h-auto' 
             src={data.image} 
             alt={data.title}
-            style={{ maxWidth: '100%', height: 'auto' }}
+            style={{ maxHeight: '500px' }}
           />
         ) : (
           // Handle regular images with Next.js Image component
           <Image 
-            className='border-4 border-white shadow-lg rounded-lg inline-block' 
+            className='mx-auto border-4 border-white shadow-lg rounded-lg max-w-full h-auto' 
             src={data.image} 
             width={800} 
             height={480} 
             alt={data.title}
-            style={{ maxWidth: '100%', height: 'auto' }}
+            style={{ maxHeight: '500px' }}
           />
         )}
       </div>
