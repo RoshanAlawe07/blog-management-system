@@ -122,121 +122,179 @@ const LoadDB = async () => {
 LoadDB();
 loadLocalBlogs(); // Always load local blogs
 
-// API Endpoint to get all blogs
+// API Endpoint For Getting Blogs
 export async function GET(request) {
   try {
     console.log("🔍 Blog API GET request received");
-    const blogId = request.nextUrl.searchParams.get("id");
     
-    // Always try database first
+    // Always try to connect to database first
+    await ConnectDB();
+    
+    const { searchParams } = new URL(request.url);
+    const blogId = searchParams.get('id');
+    
+    // Try to get blogs from database first
     try {
       if (blogId) {
+        // Get specific blog by ID
         const blog = await BlogModel.findById(blogId);
         if (blog) {
+          console.log("✅ Blog found in database:", blog._id);
           return NextResponse.json(blog);
+        } else {
+          console.log("❌ Blog not found in database, checking local storage");
         }
       } else {
-        const dbBlogs = await BlogModel.find({});
+        // Get all blogs from database
+        const dbBlogs = await BlogModel.find({}).sort({ createdAt: -1 });
         if (dbBlogs && dbBlogs.length > 0) {
-          console.log(`📊 Returning ${dbBlogs.length} blogs from database`);
-          return NextResponse.json({ blogs: dbBlogs })
+          console.log(`✅ Retrieved ${dbBlogs.length} blogs from MongoDB database`);
+          return NextResponse.json({ blogs: dbBlogs });
+        } else {
+          console.log("📭 No blogs found in database, using local storage");
         }
       }
     } catch (dbError) {
-      console.log("Database GET failed:", dbError.message);
+      console.log("❌ Database GET failed:", dbError.message);
+      
+      // Check if it's a connection issue
+      if (dbError.message.includes('IP that isn\'t whitelisted') || 
+          dbError.message.includes('Could not connect to any servers')) {
+        console.log("🔒 MongoDB connection issue - IP not whitelisted");
+        console.log("💡 Solution: Add your current IP address to MongoDB Atlas IP whitelist");
+        console.log("   Go to: https://cloud.mongodb.com/ → Network Access → Add IP Address");
+      }
     }
     
     // Fallback to local storage
+    console.log(`📊 Returning ${localBlogs.length} blogs from local storage`);
+    console.log("📋 Local blogs:", localBlogs);
+    
     if (blogId) {
       const blog = localBlogs.find(b => b._id === blogId);
       if (blog) {
         return NextResponse.json(blog);
       }
     } else {
-      console.log(`📊 Returning ${localBlogs.length} blogs from local storage`);
-      console.log("📋 Local blogs:", localBlogs);
-      return NextResponse.json({ blogs: localBlogs })
+      return NextResponse.json({ blogs: localBlogs });
     }
     
     // If we get here, return empty array
     return NextResponse.json({ blogs: [] });
     
   } catch (error) {
-    console.log("API Error:", error.message);
+    console.log("❌ API Error:", error.message);
     console.log("📊 Error occurred, returning local blogs as fallback");
-    return NextResponse.json({ blogs: localBlogs, error: "Using fallback storage" });
+    return NextResponse.json({ 
+      blogs: localBlogs, 
+      error: "Using fallback storage",
+      message: "Database connection failed, showing local blogs"
+    });
   }
 }
 
 // API Endpoint For Uploading Blogs
 export async function POST(request) {
   try {
-  const formData = await request.formData();
-  const timestamp = Date.now();
+    // Ensure database connection
+    await ConnectDB();
+    
+    const formData = await request.formData();
+    const timestamp = Date.now();
 
-  const image = formData.get('image');
+    const image = formData.get('image');
     if (!image) {
       return NextResponse.json({ success: false, msg: "No image provided" });
     }
 
-  const imageByteData = await image.arrayBuffer();
-  const buffer = Buffer.from(imageByteData);
-  
-  // For Vercel, we can't write files, so use a placeholder or skip
-  let imgUrl = "/blog_pic_1.png"; // Default image for Vercel
-  
-  if (process.env.NODE_ENV === 'development') {
+    const imageByteData = await image.arrayBuffer();
+    const buffer = Buffer.from(imageByteData);
+    
+    // Generate unique image name for each blog
+    const imageName = `${timestamp}_${image.name}`;
+    let imgUrl = `/${imageName}`;
+    
+    // Try to save image file (works in both development and production)
     try {
-      const path = `./public/${timestamp}_${image.name}`;
-      await writeFile(path, buffer);
-      imgUrl = `/${timestamp}_${image.name}`;
+      const imagePath = `./public/${imageName}`;
+      await writeFile(imagePath, buffer);
+      console.log("✅ Image saved successfully:", imagePath);
     } catch (error) {
-      console.log("Error saving image file:", error.message);
+      console.log("⚠️  Could not save image file:", error.message);
+      // Use a fallback image if file saving fails
+      imgUrl = "/blog_pic_1.png";
     }
-  }
 
-  const blogData = {
-    title: `${formData.get('title')}`,
-    description: `${formData.get('description')}`,
-    category: `${formData.get('category')}`,
-    author: `${formData.get('author')}`,
-    image: `${imgUrl}`,
-    authorImg: `${formData.get('authorImg')}`
-  }
+    const blogData = {
+      title: `${formData.get('title')}`,
+      description: `${formData.get('description')}`,
+      category: `${formData.get('category')}`,
+      author: `${formData.get('author')}`,
+      image: `${imgUrl}`,
+      authorImg: `${formData.get('authorImg')}`,
+      createdAt: new Date().toISOString()
+    }
 
-    // Always try database first
+    // Try to save to database first
     try {
       const newBlog = await BlogModel.create(blogData);
-      console.log("Blog Saved Successfully to Database!");
-      return NextResponse.json({ success: true, msg: "Blog Added Successfully!" })
-    } catch (dbError) {
-      console.log("Database operation failed:", dbError.message);
+      console.log("✅ Blog Saved Successfully to MongoDB Database!");
+      console.log("📝 Blog ID:", newBlog._id);
       
-      // Fallback to local storage only in development
-      if (process.env.NODE_ENV === 'development') {
-        const localBlogData = {
-          _id: Date.now().toString(),
-          ...blogData,
-          createdAt: new Date().toISOString()
-        };
-        
-        localBlogs.push(localBlogData);
-        saveLocalBlogs();
-        
-        console.log("Blog Saved Successfully to Local Storage!");
-        return NextResponse.json({ success: true, msg: "Blog Added Successfully! (Local Storage)" })
-      } else {
-        // In production (Vercel), return error if database fails
+      // Also add to local storage for consistency
+      localBlogs.push({
+        _id: newBlog._id.toString(),
+        ...blogData
+      });
+      
+      return NextResponse.json({ 
+        success: true, 
+        msg: "Blog Added Successfully to Database!",
+        blogId: newBlog._id 
+      });
+      
+    } catch (dbError) {
+      console.log("❌ Database operation failed:", dbError.message);
+      
+      // Check if it's a connection issue
+      if (dbError.message.includes('IP that isn\'t whitelisted') || 
+          dbError.message.includes('Could not connect to any servers')) {
+        console.log("🔒 MongoDB connection issue - IP not whitelisted");
         return NextResponse.json({ 
           success: false, 
-          msg: "Database connection failed. Please check your MongoDB connection." 
+          msg: "Database connection failed. Please whitelist your IP address in MongoDB Atlas.",
+          error: "IP_NOT_WHITELISTED"
         });
       }
+      
+      // For other database errors, try to save locally as fallback
+      const localBlogData = {
+        _id: Date.now().toString(),
+        ...blogData
+      };
+      
+      localBlogs.push(localBlogData);
+      
+      if (process.env.NODE_ENV === 'development') {
+        saveLocalBlogs();
+      }
+      
+      console.log("💾 Blog Saved to Local Storage as fallback");
+      return NextResponse.json({ 
+        success: true, 
+        msg: "Blog Added Successfully! (Local Storage - Database unavailable)",
+        blogId: localBlogData._id,
+        warning: "Database connection failed, saved locally"
+      });
     }
     
   } catch (error) {
-    console.log("POST Error:", error.message);
-    return NextResponse.json({ success: false, msg: "Failed to add blog. Please try again." });
+    console.log("❌ POST Error:", error.message);
+    return NextResponse.json({ 
+      success: false, 
+      msg: "Failed to add blog. Please try again.",
+      error: error.message
+    });
   }
 }
 

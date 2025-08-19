@@ -7,6 +7,7 @@ A full-stack blog platform built with Next.js 14, featuring a modern responsive 
 - **Dynamic Blog Display**: Responsive grid layout showcasing blog posts with category filtering (Technology, Startup, Lifestyle)
 - **Admin Dashboard**: Complete content management system with blog creation, editing, and subscription management
 - **Email Subscription System**: Integrated newsletter subscription functionality with email notifications
+- **User Authentication**: Firebase-powered sign-in/sign-up system with secure user management
 - **Modern UI/UX**: Clean, minimalist design with hover effects and smooth animations using Tailwind CSS
 - **Database Integration**: MongoDB backend with RESTful API endpoints for data persistence
 - **Image Optimization**: Next.js Image component integration for optimized media handling
@@ -15,6 +16,7 @@ A full-stack blog platform built with Next.js 14, featuring a modern responsive 
 
 - **Frontend**: Next.js 14, React, Tailwind CSS
 - **Backend**: Node.js, MongoDB
+- **Authentication**: Firebase Authentication
 - **HTTP Client**: Axios
 - **Notifications**: React Toastify
 - **Styling**: Tailwind CSS
@@ -30,7 +32,7 @@ blog-app/
 │   └── globals.css        # Global styles
 ├── Components/            # Reusable React components
 ├── Assets/               # Static assets and configurations
-├── lib/                  # Database models and configuration
+├── lib/                  # Database models, Firebase config, and Auth context
 └── public/               # Public static files
 ```
 
@@ -41,6 +43,7 @@ blog-app/
 - Node.js 18+ 
 - npm or yarn
 - MongoDB (local or cloud)
+- Firebase project
 
 ### Installation
 
@@ -60,17 +63,33 @@ blog-app/
 3. **Set up environment variables**
    Create a `.env.local` file in the root directory:
    ```env
+   # MongoDB Configuration
    MONGODB_URI=your_mongodb_connection_string
+   
+   # Firebase Configuration
+   NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project_id.appspot.com
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+   NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
    ```
 
-4. **Run the development server**
+4. **Firebase Setup**
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select existing one
+   - Enable Authentication (Email/Password)
+   - Get your project credentials from Project Settings > General
+   - Copy the values to your `.env.local` file
+
+5. **Run the development server**
    ```bash
    npm run dev
    # or
    yarn dev
    ```
 
-5. **Open your browser**
+6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
 
 ## 📖 Usage
@@ -79,9 +98,10 @@ blog-app/
 - Browse blogs by category (Technology, Startup, Lifestyle)
 - Subscribe to email newsletter
 - Read full blog articles
+- Sign up/Sign in to access admin features
 
 ### For Admins
-- Access admin panel at `/admin`
+- Access admin panel at `/admin` (requires authentication)
 - Create and manage blog posts
 - View and manage email subscriptions
 - Monitor blog analytics
@@ -93,12 +113,21 @@ blog-app/
 - `POST /api/blog` - Create new blog
 - `POST /api/email` - Subscribe to newsletter
 
+## 🔐 Authentication
+
+The application uses Firebase Authentication for user management:
+- **Sign Up**: Create new user accounts
+- **Sign In**: Access existing accounts
+- **Admin Access**: Authenticated users can access admin panel
+- **Secure**: All sensitive routes are protected
+
 ## 🎨 Design Features
 
 - Responsive design for all devices
 - Modern UI with hover effects
 - Clean typography and spacing
 - Optimized images and performance
+- Professional authentication UI
 
 ## 📝 License
 
