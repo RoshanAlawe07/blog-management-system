@@ -13,7 +13,7 @@ const Footer = () => {
         
         {/* Copyright Text */}
         <div className='text-center sm:text-left flex-shrink-0'>
-          <p className='text-base text-white font-semibold'>All rights reserved. Copyright © 2024 Blogger</p>
+          <p className='text-base text-white font-semibold'>Alll rights reserved. Copyright © 2024 Blogger</p>
         </div>
         
         {/* Social Media Icons */}
