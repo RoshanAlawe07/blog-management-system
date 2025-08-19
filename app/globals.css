@@ -811,8 +811,10 @@ p.text-center {
     max-width: 320px !important; /* Fixed width */
     height: auto !important;
     min-height: 480px !important; /* Reduced min-height */
+    max-height: 520px !important; /* Added max-height to prevent stretching */
     display: flex !important; /* Added flexbox */
     flex-direction: column !important; /* Added flexbox */
+    overflow: hidden !important; /* Prevent content overflow */
 }
 .blog-card img {
     width: 192px !important; /* Reduced image width */
@@ -827,11 +829,24 @@ p.text-center {
     font-size: 1.125rem !important; /* text-lg */
     line-height: 1.25 !important; /* leading-tight */
     margin-bottom: 1rem !important; /* mb-4 */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-height: 2.8rem !important; /* 2 lines * 1.4 line-height */
 }
+/* Blog description text truncation - ensure it works on Vercel */
 .blog-card p {
     font-size: 0.875rem !important; /* text-sm */
     line-height: 1.6 !important; /* leading-relaxed */
     margin-bottom: 1.5rem !important; /* mb-6 */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 4 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-height: 5.6rem !important; /* 4 lines * 1.4 line-height */
 }
 .blog-card .text-xs {
     font-size: 0.75rem !important; /* text-xs */
