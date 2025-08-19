@@ -39,7 +39,7 @@ const BlogItem = ({ id, image, title, description, category }) => {
         <h3 className="text-lg font-bold text-gray-900 mb-4 line-clamp-2 leading-tight">
           {title}
         </h3>
-        <p className="text-gray-600 text-sm line-clamp-4 mb-6 leading-relaxed">
+        <p className="text-gray-600 text-sm line-clamp-3 mb-6 leading-relaxed">
           {description}
         </p>
         <div className="flex items-center justify-between mt-auto">
