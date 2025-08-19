@@ -9,19 +9,59 @@ import React, { useEffect, useState } from 'react'
 const Page = ({ params }) => {
 
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchBlogData = async () => {
-    const response = await axios.get('/api/blog', {
-      params: {
-        id: params.id
-      }
-    })
-    setData(response.data);
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axios.get('/api/blog', {
+        params: {
+          id: params.id
+        }
+      });
+      setData(response.data);
+    } catch (err) {
+      console.error('Error fetching blog data:', err);
+      setError('Failed to load blog post. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
     fetchBlogData();
-  }, [])
+  }, [params.id])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-xl text-gray-600">Loading blog post...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Error Loading Blog</h1>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button 
+            onClick={fetchBlogData}
+            className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (data ? <>
     <div className='bg-gray-200 py-5 px-5 md:px-12 lg:px-28'>
@@ -43,10 +83,12 @@ const Page = ({ params }) => {
       <div className='text-center mb-12 w-full'>
         {data.image && data.image.startsWith('data:image') ? (
           // Handle base64 images
-          <img 
+          <Image 
             className='mx-auto border-4 border-white shadow-lg rounded-lg max-w-full h-auto' 
             src={data.image} 
             alt={data.title}
+            width={800}
+            height={480}
             style={{ maxHeight: '500px' }}
           />
         ) : (
@@ -104,7 +146,21 @@ const Page = ({ params }) => {
 
     </div>
     <Footer />
-  </> : <></>
+  </> : (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="text-gray-400 text-6xl mb-4">📝</div>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Blog Not Found</h1>
+        <p className="text-gray-600 mb-4">The blog post you're looking for doesn't exist.</p>
+        <Link 
+          href="/"
+          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors"
+        >
+          Go Home
+        </Link>
+      </div>
+    </div>
+  )
   )
 }
 
