@@ -42,7 +42,7 @@ const AuthButton = () => {
               console.log("🔐 AuthButton: Sign In button clicked");
               setShowSignIn(true);
             }}
-            className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+            className="auth-button-secondary px-4 py-2 rounded-md font-medium"
           >
             Sign In
           </button>
@@ -51,7 +51,7 @@ const AuthButton = () => {
               console.log("🔐 AuthButton: Sign Up button clicked");
               setShowSignUp(true);
             }}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            className="auth-button px-4 py-2 rounded-md font-medium"
           >
             Sign Up
           </button>

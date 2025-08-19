@@ -26,6 +26,47 @@ button {
     cursor: pointer !important;
 }
 
+/* Authentication button styles - ensure visibility */
+.auth-button {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #000000 !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.auth-button:hover {
+    background-color: #374151 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.auth-button-secondary {
+    background-color: #ffffff !important;
+    color: #374151 !important;
+    border: 2px solid #d1d5db !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.auth-button-secondary:hover {
+    background-color: #f9fafb !important;
+    border-color: #9ca3af !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Modal button styles */
+.modal-button {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: none !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.modal-button:hover {
+    background-color: #374151 !important;
+    transform: scale(1.02) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
 /* Force all inputs */
 input {
     font-family: inherit !important;
