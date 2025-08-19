@@ -1,15 +1,5 @@
 [
   {
-    "_id": "1754644516163",
-    "title": "dvsV",
-    "description": "VvSVSVSDV",
-    "category": "Startup",
-    "author": "Alex Bennett",
-    "image": "/1754644516159_Screenshot 2025-08-05 181158.png",
-    "authorImg": "/author_img.png",
-    "createdAt": "2025-08-08T09:15:16.163Z"
-  },
-  {
     "_id": "sample1",
     "title": "Getting Started with Next.js",
     "description": "Learn how to build modern web applications with Next.js framework",
@@ -70,26 +60,6 @@
     "createdAt": "2025-08-15T17:32:54.309Z"
   },
   {
-    "_id": "1755446537010",
-    "title": "sfessfsf",
-    "description": "sfsfsvsvs,vslvlslv",
-    "category": "Startup",
-    "author": "Alex Bennett",
-    "image": "/1755446526978_Screenshot 2025-07-10 040524.png",
-    "authorImg": "/author_img.png",
-    "createdAt": "2025-08-17T16:02:17.010Z"
-  },
-  {
-    "_id": "1755446539743",
-    "title": "sfessfsf",
-    "description": "sfsfsvsvs,vslvlslv",
-    "category": "Lifestyle",
-    "author": "Alex Bennett",
-    "image": "/1755446529723_Screenshot 2025-07-10 040524.png",
-    "authorImg": "/author_img.png",
-    "createdAt": "2025-08-17T16:02:19.743Z"
-  },
-  {
     "_id": "1755446541438",
     "title": "sfessfsf",
     "description": "sfsfsvsvs,vslvlslv",
@@ -98,5 +68,15 @@
     "image": "/1755446531424_Screenshot 2025-07-10 040524.png",
     "authorImg": "/author_img.png",
     "createdAt": "2025-08-17T16:02:21.438Z"
+  },
+  {
+    "_id": "1755603258956",
+    "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "description": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa",
+    "category": "Lifestyle",
+    "author": "Alex Bennett",
+    "image": "/1755603248932_bphoto.png",
+    "authorImg": "/author_img.png",
+    "createdAt": "2025-08-19T11:34:18.956Z"
   }
 ]

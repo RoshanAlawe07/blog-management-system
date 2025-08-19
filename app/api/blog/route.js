@@ -65,11 +65,19 @@ const loadLocalBlogs = () => {
             const blogsPath = path.join(process.cwd(), 'local-blogs.json');
             if (fs.existsSync(blogsPath)) {
                 const data = fs.readFileSync(blogsPath, 'utf8');
-                localBlogs = JSON.parse(data);
+                const fileBlogs = JSON.parse(data);
+                // Merge file blogs with sample blogs
+                localBlogs = [...fileBlogs, ...localBlogs.filter(sample => 
+                    !fileBlogs.find(file => file._id === sample._id)
+                )];
                 console.log(`📁 Loaded ${localBlogs.length} blogs from local storage`);
+            } else {
+                // If no local file, use sample blogs
+                initializeSampleBlogs();
             }
         } catch (error) {
-            console.log("No local blogs file found");
+            console.log("No local blogs file found, using sample blogs");
+            initializeSampleBlogs();
         }
     } else {
         // In production (Vercel), use sample blogs
@@ -95,13 +103,18 @@ const saveLocalBlogs = () => {
 
 const LoadDB = async () => {
   try {
-  await ConnectDB();
+    // Debug: Check environment variable
+    console.log("🔍 API Route Environment Check:");
+    console.log("   process.env.MONGODB_URI:", process.env.MONGODB_URI);
+    console.log("   process.env.NODE_ENV:", process.env.NODE_ENV);
+    
+    await ConnectDB();
     isConnected = true;
     console.log("✅ Database connected successfully");
   } catch (error) {
     console.log("❌ Database connection failed:", error.message);
     isConnected = false;
-    loadLocalBlogs(); // Load local blogs when DB fails
+    // Don't call loadLocalBlogs here as it's called separately
   }
 }
 
@@ -124,29 +137,33 @@ export async function GET(request) {
         }
       } else {
         const dbBlogs = await BlogModel.find({});
-        console.log(`📊 Returning ${dbBlogs.length} blogs from database`);
-        return NextResponse.json({ blogs: dbBlogs })
+        if (dbBlogs && dbBlogs.length > 0) {
+          console.log(`📊 Returning ${dbBlogs.length} blogs from database`);
+          return NextResponse.json({ blogs: dbBlogs })
+        }
       }
     } catch (dbError) {
       console.log("Database GET failed:", dbError.message);
     }
     
-    // Fallback to local storage only in development
-    if (process.env.NODE_ENV === 'development') {
-      if (blogId) {
-        const blog = localBlogs.find(b => b._id === blogId);
+    // Fallback to local storage
+    if (blogId) {
+      const blog = localBlogs.find(b => b._id === blogId);
+      if (blog) {
         return NextResponse.json(blog);
-      } else {
-        console.log(`📊 Returning ${localBlogs.length} blogs from local storage`);
-        return NextResponse.json({ blogs: localBlogs })
       }
     } else {
-      // In production (Vercel), return sample blogs if database fails
-      console.log("📊 Database failed, returning sample blogs for Vercel");
+      console.log(`📊 Returning ${localBlogs.length} blogs from local storage`);
+      console.log("📋 Local blogs:", localBlogs);
       return NextResponse.json({ blogs: localBlogs })
     }
+    
+    // If we get here, return empty array
+    return NextResponse.json({ blogs: [] });
+    
   } catch (error) {
     console.log("API Error:", error.message);
+    console.log("📊 Error occurred, returning local blogs as fallback");
     return NextResponse.json({ blogs: localBlogs, error: "Using fallback storage" });
   }
 }

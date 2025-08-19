@@ -1,9 +1,12 @@
+"use client";
+
 import { assets } from '@/Assets/assets'
 import axios from 'axios';
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 import Link from 'next/link';
+import AuthButton from './AuthButton';
 
 const Header = () => {
 
@@ -35,18 +38,14 @@ const Header = () => {
     <div className='py-8 px-8 md:px-16 lg:px-32'>
       <div className='flex justify-between items-center'>
         <Image src={assets.logo} width={180} height={60} alt='Blog Logo' className='w-[130px] sm:w-auto'/>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 items-center'>
           <button 
             onClick={handleGetStarted}
             className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border border-solid border-black shadow-[-7px_7px_0px_#000000] hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer'
           >
             Get started <Image src={assets.arrow} width={12} height={12} alt="Arrow icon" />
           </button>
-          <Link href="/admin">
-            <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border border-solid border-black shadow-[-7px_7px_0px_#000000] hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer'>
-              Admin Panel
-            </button>
-          </Link>
+          <AuthButton />
         </div>
       </div>
       <div className='text-center my-12'>
