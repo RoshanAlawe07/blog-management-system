@@ -914,6 +914,7 @@ p.text-center {
 }
 
 .blog-card .p-4.pt-8 {
+    padding: 1rem !important; /* p-4 */
     padding-top: 2rem !important; /* pt-8 */
 }
 .blog-card .mt-8 {
@@ -927,4 +928,26 @@ p.text-center {
 .blog-section .flex.justify-center.gap-4.my-4.-mt-8 {
     margin-top: -2rem !important; /* Negative top margin to move up */
     margin-bottom: 1rem !important; /* Keep bottom margin */
+}
+
+/* Category text styling and positioning - ensure it works on Vercel */
+.blog-card .text-xs {
+    font-size: 0.75rem !important; /* text-xs */
+    padding: 0.25rem 0.5rem !important; /* px-2 py-1 */
+    background-color: #f3f4f6 !important; /* bg-gray-100 */
+    color: #4b5563 !important; /* text-gray-600 */
+    border-radius: 9999px !important; /* rounded-full */
+    font-weight: 500 !important; /* font-medium */
+    display: inline-block !important;
+    margin-top: 1.5rem !important; /* mt-6 - move up closer to image */
+    margin-bottom: 1rem !important; /* mb-4 */
+}
+
+/* Category container positioning */
+.blog-card .flex.items-center.gap-3.mb-4.mt-6 {
+    margin-top: 1.5rem !important; /* mt-6 */
+    margin-bottom: 1rem !important; /* mb-4 */
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important; /* gap-3 */
 }
