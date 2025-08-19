@@ -2,29 +2,14 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/lib/AuthContext';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+import Link from 'next/link';
 import Image from 'next/image';
 
 const AuthButton = () => {
   const { user, logout, isAuthenticated } = useAuth();
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   console.log("🔐 AuthButton: Current state - User:", user?.email, "Authenticated:", isAuthenticated);
-
-  const handleSignInSwitch = () => {
-    console.log("🔐 AuthButton: Switching to Sign In");
-    setShowSignUp(false);
-    setShowSignIn(true);
-  };
-
-  const handleSignUpSwitch = () => {
-    console.log("🔐 AuthButton: Switching to Sign Up");
-    setShowSignIn(false);
-    setShowSignUp(true);
-  };
 
   const handleLogout = async () => {
     console.log("🔐 AuthButton: Logging out...");
@@ -35,42 +20,20 @@ const AuthButton = () => {
   if (!isAuthenticated) {
     console.log("🔐 AuthButton: User not authenticated, showing Sign In/Sign Up buttons");
     return (
-      <>
-        <div className="flex gap-3">
-          <button
-            onClick={() => {
-              console.log("🔐 AuthButton: Sign In button clicked");
-              setShowSignIn(true);
-            }}
-            className="auth-button-secondary px-4 py-2 rounded-md font-medium"
-          >
-            Sign In
-          </button>
-          <button
-            onClick={() => {
-              console.log("🔐 AuthButton: Sign Up button clicked");
-              setShowSignUp(true);
-            }}
-            className="auth-button px-4 py-2 rounded-md font-medium"
-          >
-            Sign Up
-          </button>
-        </div>
-
-        {showSignIn && (
-          <SignIn
-            onClose={() => setShowSignIn(false)}
-            onSwitchToSignUp={handleSignUpSwitch}
-          />
-        )}
-
-        {showSignUp && (
-          <SignUp
-            onClose={() => setShowSignUp(false)}
-            onSwitchToSignIn={handleSignInSwitch}
-          />
-        )}
-      </>
+      <div className="flex gap-3">
+        <Link
+          href="/signin"
+          className="auth-button-secondary px-4 py-2 rounded-md font-medium"
+        >
+          Sign In
+        </Link>
+        <Link
+          href="/signup"
+          className="auth-button px-4 py-2 rounded-md font-medium"
+        >
+          Sign Up
+        </Link>
+      </div>
     );
   }
 
