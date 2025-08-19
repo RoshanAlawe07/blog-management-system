@@ -62,8 +62,43 @@ const Page = ({ params }) => {
         )}
       </div>
       
-      <div className='blog-content mt-8 mb-12' dangerouslySetInnerHTML={{__html:data.description}}>
-        
+      <div className='blog-content mt-8 mb-12'>
+        <div className='prose prose-lg max-w-none'>
+          {data.description && data.description.split('\n').map((paragraph, index) => {
+            const trimmedParagraph = paragraph.trim();
+            if (!trimmedParagraph) return null;
+            
+            // Check if it's a bullet point (starts with - or *)
+            if (trimmedParagraph.startsWith('-') || trimmedParagraph.startsWith('*')) {
+              return (
+                <li key={index} className='mb-2 leading-relaxed text-gray-700 text-lg list-disc ml-6'>
+                  {trimmedParagraph.substring(1).trim()}
+                </li>
+              );
+            }
+            
+            // Check if it's a heading (starts with #)
+            if (trimmedParagraph.startsWith('#')) {
+              const level = trimmedParagraph.match(/^#+/)[0].length;
+              const text = trimmedParagraph.replace(/^#+\s*/, '');
+              
+              if (level === 1) {
+                return <h1 key={index} className='text-4xl font-bold mb-6 mt-10 text-gray-900 border-b-2 border-gray-200 pb-2'>{text}</h1>;
+              } else if (level === 2) {
+                return <h2 key={index} className='text-3xl font-bold mb-6 mt-8 text-gray-900 border-b-2 border-gray-200 pb-2'>{text}</h2>;
+              } else if (level === 3) {
+                return <h3 key={index} className='text-2xl font-semibold mb-4 mt-6 text-gray-900'>{text}</h3>;
+              }
+            }
+            
+            // Regular paragraph
+            return (
+              <p key={index} className='mb-6 leading-relaxed text-gray-700 text-lg text-justify'>
+                {trimmedParagraph}
+              </p>
+            );
+          })}
+        </div>
       </div>
       
 
