@@ -120,7 +120,7 @@ const BlogList = () => {
           {blogs.length === 0 ? "No blogs found. Please try again later." : "Using sample blogs. Database connection not available."}
         </div>
       )}
-      <div className='flex justify-center gap-4 my-4 -mt-8'>
+      <div className='flex justify-center gap-4 my-2 -mt-4'>
         <button 
           onClick={()=>setMenu('All')} 
           className={`py-2 px-6 rounded-md font-medium transition-all duration-200 ${
@@ -170,7 +170,7 @@ const BlogList = () => {
           <div className="text-xl text-gray-500">No blogs available</div>
         </div>
       ) : (
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16 px-4 max-w-6xl mx-auto justify-items-center'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 px-4 max-w-6xl mx-auto justify-items-center'>
           {blogs.filter((item)=> {
             const shouldShow = menu==="All"?true:item.category===menu;
             console.log(`🔍 Blog "${item.title}" (${item.category}) - Menu: ${menu} - Show: ${shouldShow}`);

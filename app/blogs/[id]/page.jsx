@@ -4,7 +4,7 @@ import Footer from '@/Components/Footer';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 
 const Page = ({ params }) => {
 
@@ -12,7 +12,7 @@ const Page = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchBlogData = async () => {
+  const fetchBlogData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -28,11 +28,11 @@ const Page = ({ params }) => {
     } finally {
       setLoading(false);
     }
-  }
+  }, [params.id]);
 
   useEffect(() => {
     fetchBlogData();
-  }, [params.id])
+  }, [fetchBlogData])
 
   if (loading) {
     return (
@@ -151,7 +151,7 @@ const Page = ({ params }) => {
       <div className="text-center">
         <div className="text-gray-400 text-6xl mb-4">📝</div>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Blog Not Found</h1>
-        <p className="text-gray-600 mb-4">The blog post you're looking for doesn't exist.</p>
+        <p className="text-gray-600 mb-4">The blog post you&apos;re looking for doesn&apos;t exist.</p>
         <Link 
           href="/"
           className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors"
