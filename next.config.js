@@ -20,7 +20,7 @@ const nextConfig = {
       },
     ],
     domains: ['localhost', 'vercel.app', 'netlify.app'],
-  },
+  }, 
   experimental: {
     serverComponentsExternalPackages: ['mongoose']
   }
